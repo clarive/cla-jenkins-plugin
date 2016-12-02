@@ -33,12 +33,12 @@ This CI is to save your Jenkins Server parameters:
 
 Example:
 
-```javascript
-Hostname: 192.168.23.9
-Port: 8080
-User: clarive
-Authentification Token: e3jru4228ddr4g56j74dfyj
-```
+
+		Hostname: 192.168.23.9
+		Port: 8080
+		User: clarive
+		Authentification Token: e3jru4228ddr4g56j74dfyj
+
 
 ### JenkinsItem:
 
@@ -56,15 +56,15 @@ Parameters:
 
 Example:
 
-```javascript
-Item Name: newItem
-Item Token: itemToken
-Description: some text
-JenkinsServer: (Your Server CI)
-Repository: (Your Repository CI)
-Repository Branch: master
-Repository User ID: (the ID asigned in Jenkins to the repository user)
-```
+
+		Item Name: newItem
+		Item Token: itemToken
+		Description: some text
+		JenkinsServer: (Your Server CI)
+		Repository: (Your Repository CI)
+		Repository Branch: master
+		Repository User ID: (the ID asigned in Jenkins to the repository user)
+
 
 ## Palette Services:
 
