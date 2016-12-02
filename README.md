@@ -1,7 +1,3 @@
----
-title: Jenkins Plugin
-icon: page
----
 
 # Jenkins Plugin
 
