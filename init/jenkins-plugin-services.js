@@ -29,9 +29,10 @@ reg.register('service.jenkins.create', {
         var description = config.description || '';
         var itemName = config.itemName || '';
         var BASE_URL = 'http://' + jenkinsServer.userName + ':' + jenkinsServer.authToken + '@' + jenkinsServer.hostname + ':' + jenkinsServer.port;
+        var TEMPLATE_PATH = CLARIVE_BASE + "/plugins/cla-jenkins-plugin/templates/";
 
         function createNewItem(crumb, xmlLocation, json, itemName) {
-            
+
             var localhost = ci.getClass('GenericServer');
             var local = new localhost({
                 name: "localhost",
@@ -41,21 +42,21 @@ reg.register('service.jenkins.create', {
             if (userId != '') {
                 var createCredential = 'curl -H ' + crumb + " -s POST '" + BASE_URL + "/credentials/store/system/domain/_/createCredentials'" + " --data-urlencode " + json;
                 agent.execute(createCredential);
-                if(agent.tuple().rc != 0){
-                    throw new Error("Error creating Credentials "+ agent.tuple().output);
+                if (agent.tuple().rc != 0) {
+                    throw new Error("Error creating Credentials " + agent.tuple().output);
                 }
             }
 
             var createJob = 'curl -H ' + crumb + " -s POST '" + BASE_URL + "/createItem?name=" + itemName + "'" + " --data-binary @" + xmlLocation + ' -H "Content-Type:text/xml"';
             agent.execute(createJob);
             fs.deleteFile(xmlLocation);
-            if(agent.tuple().rc != 0){
-                    throw new Error("Error creating Item "+ agent.tuple().output);
+            if (agent.tuple().rc != 0) {
+                throw new Error("Error creating Item " + agent.tuple().output);
             }
         };
 
         var createCI = function(itemName, description, repo, branch, server, userId) {
-            
+
             var ag = web.agent();
             var checkItem = ag.get(BASE_URL + "/job/" + itemName + "/");
 
@@ -72,29 +73,27 @@ reg.register('service.jenkins.create', {
                     server: [server],
                     userId: userId
                 });
-                print("Before Save")
                 var jenkinsMid = item.save();
-                print("After save")
                 log.info("This is done. Item " + itemName + " Created with mid: " + jenkinsMid, "Clarive item MID: " + jenkinsMid +
                     "\r\nItem Name: " + itemName + "\r\noutput: " + checkItem.code() + ' ' + checkItem.message());
                 return jenkinsMid;
 
             } else {
-                log.error("Item Creation Failed ", checkItem.code() + ' ' + checkItem.message() + '\r\n ' + checkItem.content());
+                log.error("Item Creation Failed ", checkItem.code() + ' ' + checkItem.message() + '\r\n' + checkItem.content());
                 throw new Error("Item Creation Failed ");
             }
 
         };
 
-        var xmlBuild = function(repo, branch, description, itemName, userId) {
+        var buildXml = function(repo, branch, description, itemName, userId) {
 
             var repoTemplate;
             var repoCompiled;
             var repoTpl;
-            var xmlDir = CLARIVE_BASE + "/plugins/cla-jenkins-plugin/templates/config.xml";
+            var xmlDir = TEMPLATE_PATH + "config.xml";
 
             if (repo.collection == 'GitRepository') {
-                repoTemplate = fs.slurp(CLARIVE_BASE + "/plugins/cla-jenkins-plugin/templates/git.tpl");
+                repoTemplate = fs.slurp(TEMPLATE_PATH + "git.tpl");
                 repoCompiled = hs.compile(repoTemplate);
                 repoTpl = repoCompiled({
                     repoDir: repo.repo_dir,
@@ -103,7 +102,7 @@ reg.register('service.jenkins.create', {
                 });
 
             } else if (repo.collection == 'SvnRepository') {
-                repoTemplate = fs.slurp(CLARIVE_BASE + "/plugins/cla-jenkins-plugin/templates/svn.tpl");
+                repoTemplate = fs.slurp(TEMPLATE_PATH + "svn.tpl");
                 repoCompiled = hs.compile(repoTemplate);
                 repoTpl = repoCompiled({
                     repoDir: repo.repo_dir,
@@ -117,7 +116,7 @@ reg.register('service.jenkins.create', {
 
             }
 
-            var xmlTemplate = fs.slurp(CLARIVE_BASE + "/plugins/cla-jenkins-plugin/templates/xml.tpl");
+            var xmlTemplate = fs.slurp(TEMPLATE_PATH + "xml.tpl");
             var xmlCompiledTemplate = hs.compile(xmlTemplate);
             var xml = xmlCompiledTemplate({
                 description: description,
@@ -138,7 +137,7 @@ reg.register('service.jenkins.create', {
 
         }
 
-        var jsonTemplate = fs.slurp(CLARIVE_BASE + "/plugins/cla-jenkins-plugin/templates/credential.tpl");
+        var jsonTemplate = fs.slurp(TEMPLATE_PATH + "credential.tpl");
         var jsonCompiledTemplate = hs.compile(jsonTemplate);
         var json = jsonCompiledTemplate({
             userId: userId,
@@ -154,7 +153,7 @@ reg.register('service.jenkins.create', {
             var existingItem = ag.get(BASE_URL + "/job/" + itemName + "/");
 
             if (existingItem.isSuccess() == '') {
-                var xmlLocation = xmlBuild(jenkinsRepo, branch, description, itemName, userId);
+                var xmlLocation = buildXml(jenkinsRepo, branch, description, itemName, userId);
                 createNewItem(crumb, xmlLocation, json, itemName);
                 return createCI(itemName, description, repo, branch, server, userId);
 
