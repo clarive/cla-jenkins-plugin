@@ -13,7 +13,7 @@ It helps to automate the non-human part of the software development process, wit
 ## Installing
 
 To install the plugin place the cla-jenkins-plugin folder inside `CLARIVE_BASE/plugins`
-directory in Clarive's platform.
+directory in Clarive's instance.
 
 ## How to use
 
