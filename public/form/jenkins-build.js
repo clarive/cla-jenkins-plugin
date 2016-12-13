@@ -1,5 +1,5 @@
 (function(params) {
-    
+
     var item = Cla.ui.ciCombo({
         name: 'item',
         value: params.data.item || '',
@@ -20,9 +20,22 @@
         fieldLabel: 'Refresh time (seconds)',
         allowBlank: false
     });
+
+    var buildParameters = new Baseliner.GridEditor({
+        fieldLabel: _("Build Parameters"),
+        width: '100%',
+        height: 300,
+        name: 'buildParameters',
+        columns: ['name', 'value'],
+        records: params.data.buildParameters,
+        allowBlank: true
+    });
+
+
     return [
-        item, 
+        item,
         timeout,
-        checkTime
+        checkTime,
+        buildParameters
     ]
 })

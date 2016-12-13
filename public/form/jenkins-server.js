@@ -14,6 +14,11 @@
             type: 'int',
             vtype: 	'port'
         }),
+        Cla.ui.checkBox({
+            name: 'crumbEnabled',
+            fieldLabel: 'Crumb enabled?',
+            checked:true
+        }),
         Cla.ui.textField({
             name: 'userName',
             fieldLabel: 'Username',

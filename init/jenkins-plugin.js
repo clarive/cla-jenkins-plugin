@@ -1,8 +1,11 @@
 var ci = require("cla/ci");
 
+ci.createRole("Jenkins");
+
 ci.createClass("JenkinsServer", {
     form: '/plugin/cla-jenkins-plugin/form/jenkins-server.js',
     icon: '/plugin/cla-jenkins-plugin/icon/jenkins.svg',
+    roles: ["Jenkins"],
     has: {
         hostname: {
             is: "rw",
@@ -12,6 +15,11 @@ ci.createClass("JenkinsServer", {
         port: {
             is: "rw",
             isa: "Int",
+            required: true
+        },
+        crumbEnabled: {
+            is: "rw",
+            isa: "Bool",
             required: true
         },
         userName: {
@@ -31,6 +39,7 @@ ci.createClass("JenkinsServer", {
 ci.createClass("JenkinsItem", {
     form: '/plugin/cla-jenkins-plugin/form/jenkins-item.js',
     icon: '/plugin/cla-jenkins-plugin/icon/jenkins.svg',
+    roles: ["Jenkins"],
     has: {
         itemName: {
             is: "rw",
@@ -42,30 +51,10 @@ ci.createClass("JenkinsItem", {
             isa: "Str",
             required: true
         },
-        itemDescription: {
-            is: "rw",
-            isa: "Str",
-            required: false
-        },
-        repo: {
-            is: "rw",
-            isa: "ArrayRef",
-            required: true
-        },
-        branch: {
-            is: "rw",
-            isa: "Str",
-            required: false
-        },
         server: {
             is: "rw",
             isa: "ArrayRef",
             required: true
-        },
-        userId: {
-            is: "rw",
-            isa: "Str",
-            required: false
         }
     }
 });
