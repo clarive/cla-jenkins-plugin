@@ -1,7 +1,7 @@
 
 # Jenkins Plugin
 
-Jenkins Plugin is designed to be able to configurate new items, build them or check their
+Jenkins Plugin is designed to be able to build Jenkins items or check their
 statuses from Clarive.
 
 ## What is Jenkins
@@ -28,6 +28,7 @@ This CI is to save your Jenkins Server parameters:
 
 - **Hostname -** This is the Jenkins hostname.
 - **Port -** The Jenkins server port.
+- **Crumb enabled?-** This option must be checked if you have crumb activated at Jenkins security configuration.
 - **User -** User for Jenkins Server.
 - **Authentification Token -** Instead of user password, this plugin is using the authentification token for Jenkins connection.
 
@@ -36,6 +37,7 @@ Example:
 
 		Hostname: 192.168.23.9
 		Port: 8080
+		Crumb enabled?: True
 		User: clarive
 		Authentification Token: e3jru4228ddr4g56j74dfyj
 
@@ -48,54 +50,29 @@ Parameters:
 
 - **Item Name -** Name you want to set for the item.
 - **Item Token -** The token to be able to build the item remotely. It can be manually asigned in Jenkins or automatically with the palette item.
-- **Description -** Optional description for the item.
 - **JenkinsServer -** The Jenkins Server CI where the item is. Need to be previously created.
-- **Repository -** Like with Jenkins Server, you need to have a [Git](http://docs.clarive.com/setup/operation/#artifacts-and-repositories) or [Svn](http://docs.clarive.com/setup/operation/#artifacts-and-repositories) repository CI that the item will be using and building.
-- **Repository Branch -** This is optional, just fill it if the repository needs an specific branch to use. Empty value means any brach.
-- **Repository User ID -** This is optional, just in case your repository needs an user and password, Jenkins asign an ID when it creates the credentials.
 
 Example:
 
 
 		Item Name: newItem
 		Item Token: itemToken
-		Description: some text
 		JenkinsServer: (Your Server CI)
-		Repository: (Your Repository CI)
-		Repository Branch: master
-		Repository User ID: (the ID asigned in Jenkins to the repository user)
-
+		
 
 ## Palette Services:
-
-### Jenkins Create new Item
-
-This palette service will let you be able to configurate a new item to be created in Jenkins remotely.
-Parameters:
-
-- **Item Name -** You will need to fill an itemname with the name you want for the new item.
-- **Description -** Optional description of the item.
-- **Jenkins Server -** You need to have a JenkinsServer CI previously created.
-- **Repository -** Like with Jenkins Server, you need to have a [Git](http://docs.clarive.com/setup/operation/#artifacts-and-repositories) or [Svn](http://docs.clarive.com/setup/operation/#artifacts-and-repositories) repository CI previously created.
-- **Repository Branch -** This is optional, just fill it if the repository needs an specific branch to use.
-- **Repository User -** This is optional, just fill it if the repository needs an user and password.
-- **Repository Password -** This is optional, just fill it if the repository needs an user and password.
-
-This service will check the connection to the selected Jenkins Server and will try to create the item you
-filled in the parameters. If any error occurs during the creation, you will be able to see the server response in the log generated into the job.
-
-This service will return the Item ID asigned in Clarive to JenkinsItem CI. Remember to set it in Return Key properties parameter to be able to use it later.
-
 
 ### Jenkins Build item
 
 This palette service will remotely build the item you select from JenkinsItem CI, returning the build number the item will have in Jenkins.
 Parameters:
 
-- **Jenkins Item -** You only need to select the Jenkins Item CI from clarive you want to build.
+- **Jenkins item -** You only need to select the Jenkins Item CI from clarive you want to build.
 - **Timeout (seconds) -** Time for the service stop looking for the build number. 10 seconds by default. 
-- **Refresh Time (seconds)-** Wait time between tries of getting build number. 1 second by default.
+- **Refresh time (seconds)-** Wait time between tries of getting build number. 1 second by default.
+- **Build parameters-** Here you can add parameters if your build is parameterized, or let it empty if it is not.
  
+
 This service will return the build number asigned in Jenkins. Remember to set it in Return Key properties parameter to be able to use it later.
 If any error occurs during the creation, you will be able to see the server response in the log generated into the job.
 
