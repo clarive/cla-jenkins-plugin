@@ -141,8 +141,6 @@ reg.register('service.jenkins.check', {
                 if (jenkinsResult != null) {
                     return jenkinsResult;
                 }
-                log.error("Getting Build Result Failed. Timeout Reached. ");
-                throw new Error("Getting Build Result Failed. Timeout Reached.");
             }, {
                 pause: pause,
                 attempts: pause ? timeout / pause : 0
@@ -150,7 +148,11 @@ reg.register('service.jenkins.check', {
         }
         checkBuildSarted(itemUrl);
         var jenkinsResult = getBuildResult(itemUrl, timeout, pause);
-
+        if (!jenkinsResult){
+            log.error("Getting Build Result Failed. Timeout Reached. ");
+            throw new Error("Getting Build Result Failed. Timeout Reached.");      
+        }
+        
         log.info("Item " + jenkinsItem.itemName + " Build Number: " + buildNumber + " Result: " + jenkinsResult);
         return jenkinsResult;
     }
