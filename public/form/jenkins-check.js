@@ -9,7 +9,7 @@
     var item = Cla.ui.ciCombo({
         name: 'item',
         value: params.data.item || '',
-        class: 'BaselinerX::CI::JenkinsItem',
+        class: 'JenkinsItem',
         fieldLabel: 'Jenkins Item',
         allowBlank: false,
         with_vars: 1
