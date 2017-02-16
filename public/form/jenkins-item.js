@@ -3,7 +3,7 @@
          var server =  Cla.ui.ciCombo({
             name: 'server',
             value: params.rec.server || '',
-            class: 'BaselinerX::CI::JenkinsServer',
+            class: 'JenkinsServer',
             fieldLabel: 'Jenkins Server',
             allowBlank: false
         });
