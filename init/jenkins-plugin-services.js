@@ -119,18 +119,20 @@ reg.register('service.jenkins.check', {
 
         function checkBuildSarted(itemUrl) {
             log.debug("Checking Item build Exists.");
+            try{
             return util.retry(function() {
                 var checkBuildNumber = agent.get(itemUrl);
                 if (checkBuildNumber.success) {
                     return;
                 }
-                log.error("Error getting build number. " + checkBuildNumber.content, checkBuildNumber.status + " " + checkBuildNumber.content);
-                throw new Error("Error getting build number.");
             }, {
                 pause: 1,
                 attempts: 15
             });
-
+            }catch (e){
+                    log.error("Error getting build number." , e);
+                    throw new Error("Error getting build number.");
+            }
         }
 
         function getBuildResult(itemUrl, timeout, pause) {
@@ -146,6 +148,7 @@ reg.register('service.jenkins.check', {
                 attempts: pause ? timeout / pause : 0
             });
         }
+
         checkBuildSarted(itemUrl);
         var jenkinsResult = getBuildResult(itemUrl, timeout, pause);
         if (!jenkinsResult){
