@@ -97,7 +97,7 @@ reg.register('service.jenkins.check', {
         var util = require("cla/util");
         var item = config.item || '';
         var jenkinsItem = ci.findOne({
-            mid: config.item + ''
+            mid: item + ''
         });
         var jenkinsServer = ci.findOne({
             mid: jenkinsItem.server + ''
@@ -119,19 +119,19 @@ reg.register('service.jenkins.check', {
 
         function checkBuildSarted(itemUrl) {
             log.debug("Checking Item build Exists.");
-            try{
-            return util.retry(function() {
-                var checkBuildNumber = agent.get(itemUrl);
-                if (checkBuildNumber.success) {
-                    return;
-                }
-            }, {
-                pause: 1,
-                attempts: 15
-            });
-            }catch (e){
-                    log.error("Error getting build number." , e);
-                    throw new Error("Error getting build number.");
+            try {
+                return util.retry(function() {
+                    var checkBuildNumber = agent.get(itemUrl);
+                    if (checkBuildNumber.success) {
+                        return;
+                    }
+                }, {
+                    pause: 1,
+                    attempts: 15
+                });
+            } catch (e) {
+                log.error("Error getting build number.", e);
+                throw new Error("Error getting build number.");
             }
         }
 
@@ -142,6 +142,9 @@ reg.register('service.jenkins.check', {
                 var jenkinsResult = JSON.parse(checkBuildStatus.content).result;
                 if (jenkinsResult != null) {
                     return jenkinsResult;
+                } else {
+                    log.error("Build not finished. Timeout Reached.");
+                    throw new Error("Build not finished. Timeout Reached.");
                 }
             }, {
                 pause: pause,
@@ -151,11 +154,11 @@ reg.register('service.jenkins.check', {
 
         checkBuildSarted(itemUrl);
         var jenkinsResult = getBuildResult(itemUrl, timeout, pause);
-        if (!jenkinsResult){
+        if (!jenkinsResult) {
             log.error("Getting Build Result Failed. Timeout Reached. ");
-            throw new Error("Getting Build Result Failed. Timeout Reached.");      
+            throw new Error("Getting Build Result Failed. Timeout Reached.");
         }
-        
+
         log.info("Item " + jenkinsItem.itemName + " Build Number: " + buildNumber + " Result: " + jenkinsResult);
         return jenkinsResult;
     }
