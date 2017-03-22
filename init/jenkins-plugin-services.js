@@ -10,13 +10,19 @@ reg.register('service.jenkins.build', {
         var web = require("cla/web");
         var util = require("cla/util");
 
-        var item = config.item || '';
+        var item = config.item || "";  
         var jenkinsItem = ci.findOne({
             mid: item + ''
         });
+        if (!jenkinsItem){
+            log.fatal("Item CI doesn't exist");
+        }
         var jenkinsServer = ci.findOne({
             mid: jenkinsItem.server + ''
         });
+        if (!jenkinsServer){
+            log.fatal("Server CI doesn't exist");
+        }
 
         var BASE_URL = 'http://' + jenkinsServer.userName + ':' + jenkinsServer.authToken + '@' + jenkinsServer.hostname + ':' + jenkinsServer.port;
         var timeout = config.timeout || 10;
@@ -95,13 +101,19 @@ reg.register('service.jenkins.check', {
         var log = require('cla/log');
         var web = require("cla/web");
         var util = require("cla/util");
-        var item = config.item || '';
+        var item = config.item || "";
         var jenkinsItem = ci.findOne({
             mid: item + ''
         });
+        if (!jenkinsItem){
+            log.fatal("Item CI doesn't exist");
+        }
         var jenkinsServer = ci.findOne({
             mid: jenkinsItem.server + ''
         });
+        if (!jenkinsServer){
+            log.fatal("Server CI doesn't exist");
+        }
         var BASE_URL = 'http://' + jenkinsServer.userName + ':' + jenkinsServer.authToken + '@' + jenkinsServer.hostname + ':' + jenkinsServer.port;
         var buildNumber = '';
 
