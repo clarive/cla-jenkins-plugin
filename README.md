@@ -49,7 +49,7 @@ create it using rule creator and the palette services designed for this plugin.
 Parameters:
 
 - **Item Name -** Name you want to set for the item.
-- **Item Token -** The token to be able to build the item remotely. It can be manually asigned in Jenkins or automatically with the palette item.
+- **Item Token -** The token to be able to build the item remotely. It can be manually asigned in Jenkins.
 - **JenkinsServer -** The Jenkins Server CI where the item is. Need to be previously created.
 
 Example:
