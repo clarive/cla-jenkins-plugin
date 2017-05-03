@@ -5,6 +5,7 @@ reg.register('service.jenkins.build', {
     icon: '/plugin/cla-jenkins-plugin/icon/jenkins.svg',
     form: '/plugin/cla-jenkins-plugin/form/jenkins-build.js',
     handler: function(ctx, config) {
+
         var ci = require("cla/ci");
         var log = require('cla/log');
         var web = require("cla/web");
