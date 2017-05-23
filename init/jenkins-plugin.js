@@ -49,7 +49,7 @@ ci.createClass("JenkinsItem", {
         itemToken: {
             is: "rw",
             isa: "Str",
-            required: true
+            required: false
         },
         server: {
             is: "rw",

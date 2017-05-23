@@ -15,7 +15,7 @@
         var itemTokenTextField = Cla.ui.textField({
             name: 'itemToken',
             fieldLabel: 'Item Token',
-            allowBlank: false
+            allowBlank: true
         });
 
     return [
