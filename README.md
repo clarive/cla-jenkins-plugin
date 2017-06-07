@@ -41,6 +41,9 @@ Example:
 		User: clarive
 		Authentification Token: e3jru4228ddr4g56j74dfyj
 
+JenkinsServer CI will also has an available service to get all Jenkins items from JenkinsServer CI where it's been executed.
+
+The service will add detected items to JenkinsItem CIs with the name and the server it belongs. For those items which need a token to be launched, you need to fill the token field manually in the item CI.
 
 ### JenkinsItem:
 

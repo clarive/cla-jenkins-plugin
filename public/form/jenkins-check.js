@@ -1,14 +1,17 @@
 (function(params) {
+
+    var data = params.data;
+
     var buildNumber = Cla.ui.textField({
         name: 'buildNumber',
-        value: params.data.buildNumber || '',
+        value: data.buildNumber || '',
         fieldLabel: 'Build Number',
         allowBlank: true
     });
 
     var item = Cla.ui.ciCombo({
         name: 'item',
-        value: params.data.item || '',
+        value: data.item || '',
         class: 'JenkinsItem',
         fieldLabel: 'Jenkins Item',
         allowBlank: false,
@@ -16,17 +19,16 @@
     });
     var timeout = Cla.ui.numberField({
         name: 'timeout',
-        value: params.data.timeout || '10',
+        value: data.timeout || '10',
         fieldLabel: 'Timeout (seconds)',
         allowBlank: false
     });
     var checkTime = Cla.ui.numberField({
         name: 'checkTime',
-        value: params.data.checkTime || '1',
+        value: data.checkTime || '1',
         fieldLabel: 'Refresh time (seconds)',
         allowBlank: false
     });
-
 
     return [
         item,
