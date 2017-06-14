@@ -25,7 +25,7 @@
         allowBlank: false
     });
 
-    var buildParameters = new Baseliner.GridEditor({
+    var buildParameters = Cla.ui.gridEditor({
         fieldLabel: _("Build Parameters"),
         width: '100%',
         height: 300,
