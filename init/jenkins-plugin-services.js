@@ -3,7 +3,7 @@ var reg = require("cla/reg");
 
 reg.registerCIService('getAllItems', {
     class: 'JenkinsServer',
-    name: 'Get all Jenkins items',
+    name: _('Get all Jenkins items'),
     icon: '/plugin/cla-jenkins-plugin/icon/jenkins.svg',
     form: '/plugin/cla-jenkins-plugin/form/jenkins-service.js',
     handler: function(ctx, config) {
@@ -24,7 +24,7 @@ reg.registerCIService('getAllItems', {
         });
 
         function getItemList(timeout, pause) {
-            log.debug("Getting all Jenkins items");
+            log.debug(_("Getting all Jenkins items"));
 
             return util.retry(function() {
 
@@ -33,7 +33,7 @@ reg.registerCIService('getAllItems', {
                 if (content.jobs) {
                     return content.jobs;
                 }
-                log.fatal("Getting all Jenkins items failed. Timeout Reached. ");
+                log.fatal(_("Getting all Jenkins items failed. Timeout Reached. "));
             }, {
                 pause: pause,
                 attempts: pause ? timeout / pause : 0
@@ -76,13 +76,13 @@ reg.registerCIService('getAllItems', {
             }
         }
 
-        log.info("Items added.")
+        log.info(_("Items added."));
     }
 });
 
 
 reg.register('service.jenkins.build', {
-    name: 'Jenkins Item Build',
+    name: _('Jenkins Item Build'),
     icon: '/plugin/cla-jenkins-plugin/icon/jenkins.svg',
     form: '/plugin/cla-jenkins-plugin/form/jenkins-build.js',
     handler: function(ctx, config) {
@@ -97,13 +97,13 @@ reg.register('service.jenkins.build', {
             mid: item + ''
         });
         if (!jenkinsItem) {
-            log.fatal("Item CI doesn't exist");
+            log.fatal(_("Item CI doesn't exist"));
         }
         var jenkinsServer = ci.findOne({
             mid: jenkinsItem.server + ''
         });
         if (!jenkinsServer) {
-            log.fatal("Server CI doesn't exist");
+            log.fatal(_("Server CI doesn't exist"));
         }
 
         var BASE_URL = 'http://' + jenkinsServer.userName + ':' + jenkinsServer.authToken + '@' + jenkinsServer.hostname + ':' + jenkinsServer.port;
@@ -116,7 +116,7 @@ reg.register('service.jenkins.build', {
         });
 
         function waitForEmptyQueue(jobName, timeout, pause) {
-            log.debug("Waiting for Jenkins empty Queue");
+            log.debug(_("Waiting for Jenkins empty Queue"));
 
             return util.retry(function() {
                 var queueResponse = agent.get(BASE_URL + "/job/" + jobName + "/api/json");
@@ -125,7 +125,7 @@ reg.register('service.jenkins.build', {
                 if (content.inQueue == false) {
                     return content.nextBuildNumber;
                 }
-                log.fatal("Wait for empty queue failed. Timeout Reached. ");
+                log.fatal(_("Wait for empty queue failed. Timeout Reached. "));
             }, {
                 pause: pause,
                 attempts: pause ? timeout / pause : 0
@@ -134,21 +134,21 @@ reg.register('service.jenkins.build', {
 
         var jenkinsBuildNumber = waitForEmptyQueue(jenkinsItem.itemName, timeout, pause);
 
-        log.debug("Job queue empty, nextBuildNumber=" + jenkinsBuildNumber);
+        log.debug(_("Job queue empty, nextBuildNumber=") + jenkinsBuildNumber);
 
         var headers = {};
         if (jenkinsServer.crumbEnabled) {
-            log.debug("Getting crumb");
+            log.debug(_("Getting crumb"));
             var crumbResponse = agent.get(BASE_URL + '/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)');
             if (crumbResponse.success != 1) {
-                log.fatal("Error getting crumb " + crumbResponse.content, crumbResponse.status + " " + crumbResponse.content)
+                log.fatal(_("Error getting crumb ") + crumbResponse.content, crumbResponse.status + " " + crumbResponse.content)
             }
             var crumb = crumbResponse.content;
             var crumbHeader = crumb.split(':', 2);
             headers[crumbHeader[0]] = crumbHeader[1];
         }
 
-        log.debug("Triggering build for " + jenkinsItem.itemName);
+        log.debug(_("Triggering build for ") + jenkinsItem.itemName);
 
         var trigger = agent.postForm(BASE_URL + "/job/" + jenkinsItem.itemName + "/build", {
             token: jenkinsItem.itemToken,
@@ -160,17 +160,17 @@ reg.register('service.jenkins.build', {
         });
 
         if (trigger.status != 201) {
-            log.fatal("Trigger failed");
+            log.fatal(_("Trigger failed"));
         }
 
-        log.info("Job " + jenkinsItem.itemName + " build " + jenkinsBuildNumber + " triggered");
+        log.info(_("Job ") + jenkinsItem.itemName + _(" build ") + jenkinsBuildNumber + _(" triggered"));
 
         return jenkinsBuildNumber;
     }
 });
 
 reg.register('service.jenkins.check', {
-    name: 'Jenkins Item Check',
+    name: _('Jenkins Item Check'),
     icon: '/plugin/cla-jenkins-plugin/icon/jenkins.svg',
     form: '/plugin/cla-jenkins-plugin/form/jenkins-check.js',
     handler: function(ctx, config) {
@@ -183,13 +183,13 @@ reg.register('service.jenkins.check', {
             mid: item + ''
         });
         if (!jenkinsItem) {
-            log.fatal("Item CI doesn't exist");
+            log.fatal(_("Item CI doesn't exist"));
         }
         var jenkinsServer = ci.findOne({
             mid: jenkinsItem.server + ''
         });
         if (!jenkinsServer) {
-            log.fatal("Server CI doesn't exist");
+            log.fatal(_("Server CI doesn't exist"));
         }
         var BASE_URL = 'http://' + jenkinsServer.userName + ':' + jenkinsServer.authToken + '@' + jenkinsServer.hostname + ':' + jenkinsServer.port;
         var buildNumber = '';
@@ -207,7 +207,7 @@ reg.register('service.jenkins.check', {
         });
 
         function checkBuildSarted(itemUrl) {
-            log.debug("Checking Item build Exists.");
+            log.debug(_("Checking Item build Exists."));
             try {
                 return util.retry(function() {
                     var checkBuildNumber = agent.get(itemUrl);
@@ -219,19 +219,19 @@ reg.register('service.jenkins.check', {
                     attempts: 15
                 });
             } catch (e) {
-                log.fatal("Error getting build number.", e);
+                log.fatal(_("Error getting build number."), e);
             }
         }
 
         function getBuildResult(itemUrl, timeout, pause) {
-            log.debug("Getting Build Result");
+            log.debug(_("Getting Build Result"));
             return util.retry(function() {
                 var checkBuildStatus = agent.get(itemUrl);
                 var jenkinsResult = JSON.parse(checkBuildStatus.content).result;
                 if (jenkinsResult != null) {
                     return jenkinsResult;
                 } else {
-                    log.fatal("Build not finished. Timeout Reached.");
+                    log.fatal(_("Build not finished. Timeout Reached."));
                 }
             }, {
                 pause: pause,
@@ -242,10 +242,10 @@ reg.register('service.jenkins.check', {
         checkBuildSarted(itemUrl);
         var jenkinsResult = getBuildResult(itemUrl, timeout, pause);
         if (!jenkinsResult) {
-            log.fatal("Getting Build Result Failed. Timeout Reached. ");
+            log.fatal(_("Getting Build Result Failed. Timeout Reached. "));
         }
 
-        log.info("Item " + jenkinsItem.itemName + " Build Number: " + buildNumber + " Result: " + jenkinsResult);
+        log.info(_("Item ") + jenkinsItem.itemName + _(" Build Number: ") + buildNumber + _(" Result: ") + jenkinsResult);
         return jenkinsResult;
     }
 });

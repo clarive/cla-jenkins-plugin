@@ -3,13 +3,13 @@
     var timeoutNumberField = Cla.ui.numberField({
         name: 'timeout',
         value: '10',
-        fieldLabel: 'Timeout (seconds)',
+        fieldLabel: _('Timeout (seconds)'),
         allowBlank: false
     });
     var checkTimeNumberField = Cla.ui.numberField({
         name: 'checkTime',
         value: '1',
-        fieldLabel: 'Refresh time (seconds)',
+        fieldLabel: _('Refresh time (seconds)'),
         allowBlank: false
     });
 

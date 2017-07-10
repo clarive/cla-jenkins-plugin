@@ -1,0 +1,157 @@
+#: init/jenkins-plugin-services.js
+msgid "Get all Jenkins items"
+msgstr "Conseguir todos los items de Jenkins"
+
+#: init/jenkins-plugin-services.js
+msgid "Getting all Jenkins items"
+msgstr "Consiguiendo todos los items de Jenkins"
+
+#: init/jenkins-plugin-services.js
+msgid "Getting all Jenkins items failed. Timeout Reached. "
+msgstr "Fallo al conseguir todos los items de Jenkins. Tiempo de espera alcanzado. "
+
+#: init/jenkins-plugin-services.js
+msgid "Items added."
+msgstr "Items añadidos."
+
+#: init/jenkins-plugin-services.js
+msgid "Jenkins Item Build"
+msgstr "Compilar item de Jenkins"
+
+#: init/jenkins-plugin-services.js
+msgid "Item CI doesn't exist"
+msgstr "El CI de item no existe"
+
+#: init/jenkins-plugin-services.js
+msgid "Server CI doesn't exist"
+msgstr "CI de servidor no existe"
+
+#: init/jenkins-plugin-services.js
+msgid "Waiting for Jenkins empty Queue"
+msgstr "Esperando hueco en la cola de Jenkins"
+
+#: init/jenkins-plugin-services.js
+msgid "Wait for empty queue failed. Timeout Reached. "
+msgstr "Fallo en la espera para hueco en la cola de Jenkins. Tiempo de espera agotado. "
+
+#: init/jenkins-plugin-services.js
+msgid "Job queue empty, nextBuildNumber="
+msgstr "Cola de pases vacía, nextBuildNumber="
+
+#: init/jenkins-plugin-services.js
+msgid "Getting crumb"
+msgstr "Consiguiendo crumb"
+
+#: init/jenkins-plugin-services.js
+msgid "Error getting crumb "
+msgstr "Error consiguiendo crumb "
+
+#: init/jenkins-plugin-services.js
+msgid "Triggering build for "
+msgstr "Iniciando compilación para "
+
+#: init/jenkins-plugin-services.js
+msgid "Trigger failed"
+msgstr "Inicio de compilación fallido"
+
+#: init/jenkins-plugin-services.js
+msgid "Job "
+msgstr "Pase "
+
+#: init/jenkins-plugin-services.js
+msgid " build "
+msgstr " compilación "
+
+#: init/jenkins-plugin-services.js
+msgid " triggered"
+msgstr " iniciada "
+
+#: init/jenkins-plugin-services.js
+msgid "Jenkins Item Check"
+msgstr "Comprobar item de Jenkins"
+
+#: init/jenkins-plugin-services.js
+msgid "Checking Item build Exists."
+msgstr "Comprobando que existe la compilación del item"
+
+#: init/jenkins-plugin-services.js
+msgid "Error getting build number."
+msgstr "Error adquiriendo el número de compilación."
+
+#: init/jenkins-plugin-services.js
+msgid "Getting Build Result"
+msgstr "Adquiriendo resultado de compilación"
+
+#: init/jenkins-plugin-services.js
+msgid "Build not finished. Timeout Reached."
+msgstr "Compilación no finalizada. Tiempo de espera agotado."
+
+#: init/jenkins-plugin-services.js
+msgid "Getting Build Result Failed. Timeout Reached. "
+msgstr "Fallo al adquirir el resultado de la compilación. Tiempo de espera agotado. "
+
+#: init/jenkins-plugin-services.js
+msgid "Item "
+msgstr "Item "
+
+#: init/jenkins-plugin-services.js
+msgid " Build Number: "
+msgstr " Número de compilación: "
+
+#: init/jenkins-plugin-services.js
+msgid " Result: "
+msgstr " Resultado: "
+
+#: public/form/jenkins-build.js public/form/jenkins-check.js
+msgid "Jenkins Item"
+msgstr "Item de Jenkins"
+
+#: public/form/jenkins-build.js public/form/jenkins-check.js
+#: public/form/jenkins-service.js
+msgid "Timeout (seconds)"
+msgstr "Tiempo de espera (segundos)"
+
+#: public/form/jenkins-build.js public/form/jenkins-check.js
+#: public/form/jenkins-service.js
+msgid "Refresh time (seconds)"
+msgstr "Tiempo de actualización (segundos)"
+
+#: public/form/jenkins-build.js
+msgid "Build Parameters"
+msgstr "Parámetros de compilación"
+
+#: public/form/jenkins-check.js
+msgid "Build Number"
+msgstr "Número de compilación"
+
+#: public/form/jenkins-item.js
+msgid "Jenkins Server"
+msgstr "Servidor de Jenkins"
+
+#: public/form/jenkins-item.js
+msgid "Item Name"
+msgstr "Nombre del item"
+
+#: public/form/jenkins-item.js
+msgid "Item Token"
+msgstr "Token del item"
+
+#: public/form/jenkins-server.js
+msgid "Hostname or IP"
+msgstr "Hostname o IP"
+
+#: public/form/jenkins-server.js
+msgid "Port"
+msgstr "Puerto"
+
+#: public/form/jenkins-server.js
+msgid "Crumb enabled?"
+msgstr "Crumb habilitado?"
+
+#: public/form/jenkins-server.js
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: public/form/jenkins-server.js
+msgid "Authentication Token"
+msgstr "Token de autentificación"

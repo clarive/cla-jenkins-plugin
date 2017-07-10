@@ -4,13 +4,13 @@
 
     var hostnameTextField = Cla.ui.textField({
         name: 'hostname',
-        fieldLabel: 'Hostname or IP',
+        fieldLabel: _('Hostname or IP'),
         allowBlank: false
     });
 
     var portNumberField = Cla.ui.numberField({
         name: 'port',
-        fieldLabel: 'Port',
+        fieldLabel: _('Port'),
         allowBlank: false,
         maxValue: '99999',
         type: 'int',
@@ -19,19 +19,19 @@
 
     var crumbCheckBox = Cla.ui.checkBox({
         name: 'crumbEnabled',
-        fieldLabel: 'Crumb enabled?',
+        fieldLabel: _('Crumb enabled?'),
         checked: true
     });
 
     var userNameTextField = Cla.ui.textField({
         name: 'userName',
-        fieldLabel: 'Username',
+        fieldLabel: _('Username'),
         allowBlank: false
     });
 
     var authTokenTextfield = Cla.ui.textField({
         name: 'authToken',
-        fieldLabel: 'Authentication Token',
+        fieldLabel: _('Authentication Token'),
         allowBlank: false
     });
 

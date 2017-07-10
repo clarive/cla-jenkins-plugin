@@ -6,17 +6,17 @@
         name: 'server',
         value: data.server || '',
         class: 'JenkinsServer',
-        fieldLabel: 'Jenkins Server',
+        fieldLabel: _('Jenkins Server'),
         allowBlank: false
     });
     var itemNameTextField = Cla.ui.textField({
         name: 'itemName',
-        fieldLabel: 'Item Name',
+        fieldLabel: _('Item Name'),
         allowBlank: false
     });
     var itemTokenTextField = Cla.ui.textField({
         name: 'itemToken',
-        fieldLabel: 'Item Token',
+        fieldLabel: _('Item Token'),
         allowBlank: true
     });
 

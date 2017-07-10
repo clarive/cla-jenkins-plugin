@@ -6,7 +6,7 @@
         name: 'item',
         value: data.item || '',
         class: 'JenkinsItem',
-        fieldLabel: 'Jenkins Item',
+        fieldLabel: _('Jenkins Item'),
         allowBlank: false,
         with_vars: 1
     });
@@ -14,14 +14,14 @@
     var timeout = Cla.ui.numberField({
         name: 'timeout',
         value: data.timeout || '10',
-        fieldLabel: 'Timeout (seconds)',
+        fieldLabel: _('Timeout (seconds)'),
         allowBlank: false
     });
 
     var checkTime = Cla.ui.numberField({
         name: 'checkTime',
         value: data.checkTime || '1',
-        fieldLabel: 'Refresh time (seconds)',
+        fieldLabel: _('Refresh time (seconds)'),
         allowBlank: false
     });
 
