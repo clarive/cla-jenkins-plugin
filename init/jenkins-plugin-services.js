@@ -6,6 +6,7 @@ reg.registerCIService('getAllItems', {
     name: _('Get all Jenkins items'),
     icon: '/plugin/cla-jenkins-plugin/icon/jenkins.svg',
     form: '/plugin/cla-jenkins-plugin/form/jenkins-service.js',
+    show_in_palette: 0,
     handler: function(ctx, config) {
 
         var ci = require("cla/ci");
