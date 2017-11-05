@@ -5,7 +5,7 @@ ci.createRole("Jenkins");
 ci.createClass("JenkinsServer", {
     form: '/plugin/cla-jenkins-plugin/form/jenkins-server.js',
     icon: '/plugin/cla-jenkins-plugin/icon/jenkins.svg',
-    roles: ["Jenkins"],
+    roles: ["Jenkins", "ClariveSE"],
     has: {
         hostname: {
             is: "rw",
@@ -39,7 +39,7 @@ ci.createClass("JenkinsServer", {
 ci.createClass("JenkinsItem", {
     form: '/plugin/cla-jenkins-plugin/form/jenkins-item.js',
     icon: '/plugin/cla-jenkins-plugin/icon/jenkins.svg',
-    roles: ["Jenkins"],
+    roles: ["Jenkins", "ClariveSE"],
     has: {
         itemName: {
             is: "rw",

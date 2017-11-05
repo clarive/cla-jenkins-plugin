@@ -1,6 +1,5 @@
 var reg = require("cla/reg");
 
-
 reg.registerCIService('getAllItems', {
     class: 'JenkinsServer',
     name: _('Get all Jenkins items'),
@@ -81,11 +80,37 @@ reg.registerCIService('getAllItems', {
     }
 });
 
-
 reg.register('service.jenkins.build', {
     name: _('Jenkins Item Build'),
     icon: '/plugin/cla-jenkins-plugin/icon/jenkins.svg',
     form: '/plugin/cla-jenkins-plugin/form/jenkins-build.js',
+    rulebook: {
+        moniker: 'jenkins_build',
+        description: _('Execute a build in Jenkins'),
+        required: ['item'],
+        allow: ['item', 'timeout', 'check_time', 'build_parameters'],
+        mapper: {
+            'check_time': 'checkTime',
+            'build_parameters': 'buildParameters'
+        },
+        examples: [{
+            jenkins_build: {
+                item: 'jenkins_item_resource',
+                timeout: '10',
+                check_time: '10',
+                build_parameters: {
+                    "param1": "value1",
+                    "param2": "value2"
+                }
+            }
+        }, {
+            jenkins_build: {
+                item: 'jenkins_item_resource',
+                timeout: '10',
+                check_time: '10'
+            }
+        }]
+    },
     handler: function(ctx, config) {
 
         var ci = require("cla/ci");
@@ -174,6 +199,30 @@ reg.register('service.jenkins.check', {
     name: _('Jenkins Item Check'),
     icon: '/plugin/cla-jenkins-plugin/icon/jenkins.svg',
     form: '/plugin/cla-jenkins-plugin/form/jenkins-check.js',
+    rulebook: {
+        moniker: 'jenkins_check',
+        description: _('Checks a build status in Jenkins'),
+        required: ['item'],
+        allow: ['item', 'timeout', 'check_time', 'build_number'],
+        mapper: {
+            'check_time': 'checkTime',
+            'build_number': 'buildNumber'
+        },
+        examples: [{
+            jenkins_check: {
+                item: 'jenkins_item_resource',
+                timeout: '10',
+                check_time: '10',
+                build_number: '12'
+            }
+        }, {
+            jenkins_check: {
+                item: 'jenkins_item_resource',
+                timeout: '10',
+                check_time: '10'
+            }
+        }]
+    },
     handler: function(ctx, config) {
         var ci = require("cla/ci");
         var log = require('cla/log');
