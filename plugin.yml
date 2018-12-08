@@ -1,7 +1,7 @@
 name: Jenkins Plugin
 description: Jenkins Plugin is designed to be able to build Jenkins items or check their statuses from Clarive.
 version: 1.0
-icon: https://cdn.rawgit.com/clarive/cla-jenkins-plugin/master/public/icon/jenkins.svg?sanitize=true
+icon: https://cdn.jsdelivr.net/gh/clarive/cla-jenkins-plugin@master/public/icon/jenkins.svg?sanitize=true
 url: https://github.com/clarive/cla-jenkins-plugin
 requires:
   - clarive_version: 6.8 <= version
