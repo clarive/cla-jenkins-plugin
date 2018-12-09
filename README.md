@@ -1,6 +1,6 @@
 # Jenkins Plugin
 
-<img src="https://cdn.rawgit.com/clarive/cla-jenkins-plugin/master/public/icon/jenkins.svg?sanitize=true" alt="Jenkins Plugin" title="Jenkins Plugin" width="120" height="120">
+<img src="https://cdn.jsdelivr.net/gh/clarive/cla-jenkins-plugin@master/public/icon/jenkins.svg?sanitize=true" alt="Jenkins Plugin" title="Jenkins Plugin" width="120" height="120">
 
 Jenkins Plugin is designed to be able to build Jenkins items or check their
 statuses from Clarive.
